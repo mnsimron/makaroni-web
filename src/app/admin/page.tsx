@@ -1,7 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaCalendarAlt, FaRedo, FaTrashAlt, FaCheck, FaBox, FaPepperHot } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaRedo,
+  FaTrashAlt,
+  FaCheck,
+  FaBox,
+  FaPepperHot,
+  FaWhatsapp,
+  FaCopy,
+  FaTimes,
+} from "react-icons/fa";
 import { GiCookie } from "react-icons/gi";
 import { supabase } from "@/lib/supabase";
 
@@ -15,6 +25,40 @@ interface Order {
   spicy_level: string;
   created_at: string;
 }
+
+const indonesianDays = [
+  "Minggu",
+  "Senin",
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu",
+];
+
+const indonesianMonths = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
+
+const formatIndonesianDate = (dateString: string) => {
+  const [day, month, year] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+
+  if (!day || !month || !year || Number.isNaN(date.getTime())) return dateString;
+
+  return `${indonesianDays[date.getDay()]}, ${String(day).padStart(2, "0")} ${indonesianMonths[month - 1]} ${year}`;
+};
 
 export default function AdminDashboard() {
   // Set default tanggal hari ini format DD-MM-YYYY
@@ -30,6 +74,23 @@ export default function AdminDashboard() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
+  const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const orderSummary = [
+    `makar-oni order (${formatIndonesianDate(selectedDate)}) :`,
+    "",
+    ...orders.map(
+      (item, index) =>
+      `${index + 1}. ${item.customer_name} | ${item.flavor} | ${item.size} | Pedas: ${item.spicy_level}`
+    ),
+  ].join("\n");
+
+  const handleCopySummary = async () => {
+    await navigator.clipboard.writeText(orderSummary);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   // Ambil data pesanan dari Supabase berdasarkan tanggal
   const fetchOrders = async (dateStr: string) => {
@@ -96,13 +157,25 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <button
-            onClick={() => fetchOrders(selectedDate)}
-            className="p-2 bg-brand-secondary rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
-            title="Refresh Data"
-          >
-            <FaRedo className={`text-sm ${loading ? "animate-spin" : ""}`} />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                setIsSummaryOpen(true);
+                setCopied(false);
+              }}
+              className="p-2 bg-emerald-100 text-emerald-700 rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
+              title="Bagikan Ringkasan WhatsApp"
+            >
+              <FaWhatsapp className="text-sm" />
+            </button>
+            <button
+              onClick={() => fetchOrders(selectedDate)}
+              className="p-2 bg-brand-secondary rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
+              title="Refresh Data"
+            >
+              <FaRedo className={`text-sm ${loading ? "animate-spin" : ""}`} />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -218,6 +291,49 @@ export default function AdminDashboard() {
           </div>
         )}
       </main>
+
+      {isSummaryOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="summary-title"
+          onClick={() => setIsSummaryOpen(false)}
+        >
+          <div
+            className="w-full max-w-lg rounded-2xl border-2 border-brand-tertiary bg-white p-5 shadow-[6px_6px_0px_0px_#1E1E1E]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h2 id="summary-title" className="text-lg font-black">
+                Ringkasan Pesanan WhatsApp
+              </h2>
+              <button
+                onClick={() => setIsSummaryOpen(false)}
+                className="rounded-lg border-2 border-brand-tertiary p-1.5 hover:bg-slate-100"
+                title="Tutup"
+                aria-label="Tutup ringkasan"
+              >
+                <FaTimes />
+              </button>
+            </div>
+            <textarea
+              value={orderSummary}
+              readOnly
+              rows={Math.min(Math.max(orders.length + 3, 5), 14)}
+              className="mb-4 w-full resize-none rounded-xl border-2 border-brand-tertiary bg-slate-50 p-3 text-sm font-semibold focus:outline-none"
+              aria-label="Pratinjau ringkasan pesanan"
+            />
+            <button
+              onClick={handleCopySummary}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-brand-tertiary bg-brand-primary px-4 py-2.5 font-black shadow-[2px_2px_0px_0px_#1E1E1E] hover:opacity-90"
+            >
+              <FaCopy />
+              {copied ? "Copied!" : "Copy to Clipboard"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

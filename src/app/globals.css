@@ -1,7 +1,37 @@
 @import "tailwindcss";
 
-@theme {
-  --color-brand-primary: #96f2d7;   /* Mint/Turquoise */
-  --color-brand-secondary: #ffd43b; /* Makaroni Yellow */
-  --color-brand-tertiary: #1e1e1e;  /* Soft Black */
+.product-stage .macaroni-right {
+	z-index: 40;
+	right: 15px;
+	bottom: 190px;
 }
+
+@media (max-width: 700px) {
+	.product-stage .macaroni-right {
+		right: -40px;
+		bottom: 190px;
+	}
+}
+
+.visual-and-features,
+.product-stage { overflow: visible; }
+.floating-macaroni { z-index:20;}
+.macaroni-right { right: -55px; bottom: 112px; }
+@media (max-width: 700px) {
+	.macaroni-right { right: -40px; bottom: 112px; }
+}
+
+:root { --primary: #96f2d7; --secondary: #ffd43b; --ink: #1e1e1e; --background: #f8fafc; --white: #fff; --muted: color-mix(in srgb, var(--ink) 68%, transparent); --line: color-mix(in srgb, var(--ink) 16%, transparent); --border: 3px solid var(--ink); --shadow: 4px 4px 0 var(--ink); }
+@theme { --color-brand-primary: var(--primary); --color-brand-secondary: var(--secondary); --color-brand-tertiary: var(--ink); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--ink); font-family: "Trebuchet MS", "Arial Rounded MT Bold", sans-serif; }
+button, a { font: inherit; } button { cursor: pointer; }
+.landing-page { min-height: 100vh; overflow: visible; background: var(--background); }
+.site-nav { padding: 16px 30px 0; }.nav-inner { max-width: 1200px; height: 77px; margin: auto; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; background: var(--white); border-radius: 18px; box-shadow: 0 8px 28px rgba(30,30,30,.08); }
+.brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }.brand-mark { width: 46px; height: 46px; display: grid; place-items: center; color: var(--ink); background: var(--primary); border-radius: 10px; border: 2px solid rgba(30,30,30,.15); }.brand-name { font-size: 31px; font-weight: 900; letter-spacing: -1.5px; }.nav-actions { display: flex; gap: 17px; align-items: center; }
+.button { min-height: 47px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 26px; border: var(--border); border-radius: 10px; color: var(--ink); font-weight: 900; text-decoration: none; transition: transform .16s ease, box-shadow .16s ease; }.button:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow); }.button-outline { background: var(--white); }.button-mint { background: var(--primary); }.button-yellow { background: var(--secondary); }
+.hero-section { max-width: 1200px; margin: auto; padding: 45px 30px 0; }.hero-copy { position: relative; z-index: 2; text-align: center; }.eyebrow { width: fit-content; margin: 0 auto 17px; padding: 8px 15px; display: flex; align-items: center; gap: 8px; background: var(--secondary); border-radius: 999px; font-size: 15px; font-weight: 900; }.hero-copy h1 { margin: 0; font-size: clamp(43px,5vw,69px); line-height: .97; letter-spacing: -3px; font-weight: 950; }.hero-copy p { margin: 18px auto 17px; color: var(--muted); font-size: 16px; line-height: 1.45; }.hero-cta { min-width: 352px; min-height: 65px; font-size: 19px; box-shadow: var(--shadow); }
+.visual-and-features { position: relative; min-height: 486px; max-width: 1000px; margin: -2px auto 0; }.product-stage { position: absolute; inset: 8px 110px 0 230px; z-index: 1; }.mint-shape { position: absolute; z-index: -2; background: var(--primary); opacity: .66; }.mint-shape-one { width: 220px; height: 310px; right: 45px; bottom: 48px; border-radius: 53% 47% 57% 43%; transform: rotate(30deg); }.mint-shape-two { width: 250px; height: 160px; left: 10px; bottom: 20px; border-radius: 48% 52% 43% 57%; transform: rotate(-12deg); }.pedestal { position: absolute; bottom: -2px; left: 15%; width: 70%; height: 86px; border-radius: 55% 55% 0 0; background: var(--primary); box-shadow: inset 0 14px 20px rgba(255,255,255,.5); }.pouch-wrap { position: absolute; bottom: 28px; left: 50%; width: 310px; height: 405px; transform: translateX(-50%); z-index: 2; }.product-pouch { width: 100%; height: 100%; object-fit: contain; }.floating-macaroni { position: absolute; z-index: 3; object-fit: contain; }.macaroni-left { left: -42px; top: 30px; transform: rotate(-15deg); }.macaroni-right { right: -35px; bottom: 100px; transform: rotate(18deg); }
+.office-badge { position: absolute; right: -31px; bottom: 50px; z-index: 4; width: 126px; height: 126px; padding: 11px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; background: var(--white); border: var(--border); border-radius: 50%; transform: rotate(11deg); text-align: center; font-size: 10px; }.badge-ring { width: 54px; height: 54px; margin-bottom: 2px; display: grid; place-items: center; background: var(--secondary); border: var(--border); border-radius: 50%; }.feature-cards { position: absolute; left: 0; bottom: 113px; z-index: 5; display: grid; gap: 14px; }.feature-card { width: 172px; min-height: 64px; padding: 9px 10px; display: flex; align-items: center; gap: 10px; background: var(--white); border: var(--border); border-radius: 13px; box-shadow: var(--shadow); }.feature-icon, .benefit-icon { flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; }.feature-icon { width: 40px; height: 40px; }.feature-icon.mint, .benefit-icon.mint { background: var(--primary); }.feature-icon.yellow, .benefit-icon.yellow { background: var(--secondary); }.feature-card strong, .feature-card small, .benefit strong, .benefit small { display: block; }.feature-card strong, .feature-card small { font-size: 12px; }.feature-card small { font-weight: 700; }.hero-scroll-hint { position: absolute; right: 8px; bottom: 20px; display: flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 800; transform: rotate(-90deg); opacity: .55; }
+.benefits-row { max-width: 1000px; min-height: 140px; margin: -2px auto 28px; padding: 20px 25px; display: grid; grid-template-columns: repeat(4,1fr); align-items: center; background: var(--white); border-radius: 25px; box-shadow: 0 8px 25px color-mix(in srgb, var(--ink) 5%, transparent); }.benefit { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 90px; text-align: center; }.benefit-icon { width: 48px; height: 48px; }.benefit strong { font-size: 13px; }.benefit small { margin-top: 3px; color: var(--muted); font-size: 12px; }.benefit i { position: absolute; right: 0; height: 82px; border-right: 1px solid var(--line); }
+@media (max-width: 700px) { .site-nav { padding: 10px 12px 0; }.nav-inner { height: 65px; padding: 0 14px; border-radius: 15px; }.brand-mark { width: 38px; height: 38px; }.brand-name { font-size: 24px; }.nav-actions { gap: 7px; }.button { min-height: 40px; padding: 0 12px; font-size: 12px; }.nav-contact svg { display: none; }.hero-section { padding: 35px 14px 0; }.hero-copy h1 { font-size: 43px; letter-spacing: -2px; }.hero-copy p { font-size: 14px; }.desktop-only { display: none; }.hero-cta { min-width: 0; width: 100%; min-height: 57px; font-size: 16px; }.visual-and-features { min-height: 430px; margin-top: 20px; }.product-stage { inset: 25px 22px 0 90px; }.pouch-wrap { width: 235px; height: 315px; bottom: 37px; }.pedestal { height: 60px; left: 4%; width: 90%; }.floating-macaroni { width: 90px; height: 90px; }.macaroni-left { left: -62px; top: 47px; }.macaroni-right { right: -26px; bottom: 100px; }.office-badge { right: -24px; bottom: 34px; width: 94px; height: 94px; font-size: 8px; }.badge-ring { width: 40px; height: 40px; }.badge-ring svg { width: 22px; }.feature-cards { left: -4px; bottom: 58px; gap: 8px; }.feature-card { width: 145px; min-height: 52px; padding: 6px; gap: 6px; }.feature-icon { width: 32px; height: 32px; }.feature-icon svg { width: 17px; }.feature-card strong, .feature-card small { font-size: 10px; }.hero-scroll-hint { display: none; }.benefits-row { margin: 0 14px 20px; padding: 14px 8px; grid-template-columns: repeat(2,1fr); gap: 8px; border-radius: 18px; }.benefit { min-height: 75px; gap: 6px; }.benefit-icon { width: 37px; height: 37px; }.benefit-icon svg { width: 18px; }.benefit strong, .benefit small { font-size: 10px; }.benefit i { height: 52px; }.benefit:nth-child(2) i { display: none; } }
