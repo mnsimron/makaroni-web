@@ -1,20 +1,15 @@
 "use client";
 
-import { useState, use } from "react";
-import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaCheckCircle, FaFire, FaPepperHot } from "react-icons/fa";
+import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { FaArrowLeft, FaCheckCircle, FaPepperHot } from "react-icons/fa";
 import { GiCookie } from "react-icons/gi";
 import { supabase } from "@/lib/supabase";
 
-interface PageProps {
-  params: Promise<{ date: string }>;
-}
-
-export default function OrderPage({ params }: PageProps) {
-  const resolvedParams = use(params);
-  const orderDate = resolvedParams.date;
+export default function OrderPage() {
+  const params = useParams();
+  const orderDate = params?.date as string;
   const router = useRouter();
-
   const [customerName, setCustomerName] = useState("");
   const [size, setSize] = useState("Sedang");
   const [flavor, setFlavor] = useState("Jagung Bakar");

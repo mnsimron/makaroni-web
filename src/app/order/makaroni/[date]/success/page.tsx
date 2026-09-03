@@ -1,26 +1,27 @@
 "use client";
 
-import { use } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { FaArrowLeft, FaCheckCircle, FaWhatsapp, FaCalendarAlt, FaPepperHot, FaBox } from "react-icons/fa";
-import {GiCookie } from "react-icons/gi";
+import { GiCookie } from "react-icons/gi";
 
-interface PageProps {
-  params: Promise<{ date: string }>;
-}
-
-export default function OrderSuccessPage({ params }: PageProps) {
-  const resolvedParams = use(params);
-  const orderDate = resolvedParams.date;
+export default function OrderSuccessPage() {
+  const params = useParams();
+  const routeDate = Array.isArray(params.date) ? params.date[0] : params.date;
+  const orderDate = routeDate || "";
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // Ambil data detail pesanan dari URL query parameter
-  const orderCode = searchParams.get("code") || "#MKO-000";
-  const name = searchParams.get("name") || "-";
-  const size = searchParams.get("size") || "-";
-  const flavor = searchParams.get("flavor") || "-";
-  const spicy = searchParams.get("spicy") || "-";
+  const getQueryValue = (key: string, fallback: string) => {
+    const value = searchParams.get(key);
+    return value ? decodeURIComponent(value) : fallback;
+  };
+
+  const orderCode = getQueryValue("code", "#MKO-000");
+  const name = getQueryValue("name", "-");
+  const size = getQueryValue("size", "-");
+  const flavor = getQueryValue("flavor", "-");
+  const spicy = getQueryValue("spicy", "-");
 
   return (
     <div className="min-h-screen bg-slate-50 text-brand-tertiary flex flex-col font-sans">
