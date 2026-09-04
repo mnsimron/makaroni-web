@@ -10,6 +10,7 @@ import {
   FaPepperHot,
   FaWhatsapp,
   FaCopy,
+  FaLink,
   FaTimes,
 } from "react-icons/fa";
 import { GiCookie } from "react-icons/gi";
@@ -76,6 +77,7 @@ export default function AdminDashboard() {
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const orderSummary = [
     `makar-oni order (${formatIndonesianDate(selectedDate)}) :`,
@@ -90,6 +92,13 @@ export default function AdminDashboard() {
     await navigator.clipboard.writeText(orderSummary);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyOrderLink = async () => {
+    const url = `${window.location.origin}/order/makaroni/${selectedDate}`;
+    await navigator.clipboard.writeText(url);
+    setLinkCopied(true);
+    window.setTimeout(() => setLinkCopied(false), 2000);
   };
 
   // Ambil data pesanan dari Supabase berdasarkan tanggal
@@ -148,9 +157,6 @@ export default function AdminDashboard() {
       <header className="bg-white border-b-2 border-brand-tertiary sticky top-0 z-30 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center border-2 border-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E]">
-              <GiCookie className="text-xl text-brand-tertiary" />
-            </div>
             <div>
               <h1 className="font-black text-lg leading-none">Admin makar-oni</h1>
               <p className="text-[10px] text-gray-500 font-semibold">Dashboard Pencatatan Digital</p>
@@ -198,6 +204,14 @@ export default function AdminDashboard() {
               onChange={handleDateChange}
               className="p-2 text-xs font-bold rounded-xl border-2 border-brand-tertiary bg-slate-50 focus:outline-none"
             />
+            <button
+              onClick={handleCopyOrderLink}
+              className="p-2 bg-brand-primary rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
+              title={linkCopied ? "Link berhasil disalin" : "Salin link pesanan"}
+              aria-label={linkCopied ? "Link berhasil disalin" : "Salin link pesanan"}
+            >
+              {linkCopied ? <FaCheck className="text-sm" /> : <FaLink className="text-sm" />}
+            </button>
             <div className="bg-brand-primary/40 border-2 border-brand-tertiary px-3 py-1.5 rounded-xl text-xs font-black">
               Total: {orders.length} Pack
             </div>

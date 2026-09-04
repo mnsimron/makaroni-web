@@ -1,8 +1,8 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { FaArrowLeft, FaCheckCircle, FaWhatsapp, FaCalendarAlt, FaPepperHot, FaBox } from "react-icons/fa";
-import { GiCookie } from "react-icons/gi";
+import { FaArrowLeft, FaCheckCircle, FaCalendarAlt, FaPepperHot, FaBox } from "react-icons/fa";
+import { MessageCircle, Smile } from "lucide-react";
 
 export default function OrderSuccessPage() {
   const params = useParams();
@@ -25,45 +25,10 @@ export default function OrderSuccessPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-brand-tertiary flex flex-col font-sans">
-      {/* NAVBAR HEADER SAMA DENGAN LANDING PAGE */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          {/* Logo Kiri */}
-          <div
-            onClick={() => router.push("/")}
-            className="flex items-center gap-2 cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-full bg-brand-primary flex items-center justify-center text-brand-tertiary font-bold">
-              <GiCookie className="text-2xl" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-xl tracking-tight text-brand-tertiary leading-none">
-                makar-oni
-              </span>
-              <span className="text-[10px] text-gray-500 font-medium">by.dimsum-dotcom</span>
-            </div>
-          </div>
-
-          {/* Button Kanan */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://wa.me/6281234567890"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl text-sm font-semibold border-2 border-brand-tertiary text-brand-tertiary hover:bg-gray-100 transition-all flex items-center gap-2"
-            >
-              <FaWhatsapp className="text-lg text-emerald-600" />
-              <span className="hidden sm:inline">Contact</span>
-            </a>
-            <button
-              onClick={() => router.push("/")}
-              className="px-4 py-2 rounded-xl text-sm font-bold bg-brand-primary text-brand-tertiary hover:opacity-90 transition-all shadow-sm"
-            >
-              Home
-            </button>
-          </div>
-        </div>
-      </header>
+      <header className="site-nav"><div className="nav-inner">
+        <button onClick={() => router.push("/")} className="brand" aria-label="makar-oni home"><span className="brand-mark"><Smile size={30} strokeWidth={2.5} /></span><span className="brand-name">makar-oni</span></button>
+        <div className="nav-actions"><a className="button button-outline nav-contact" href="https://wa.me/6281290158831" target="_blank" rel="noreferrer"><MessageCircle size={17} /><span>Contact</span></a><button className="button button-mint" onClick={() => router.push("/")}>Home</button></div>
+      </div></header>
 
       {/* BODY KARTU REKAP DETAIL */}
       <main className="flex-1 max-w-md w-full mx-auto p-4 flex flex-col justify-center my-6">
@@ -96,7 +61,7 @@ export default function OrderSuccessPage() {
 
             <div className="flex justify-between items-center">
               <span className="text-gray-600 text-xs flex items-center gap-1 font-bold">
-                <FaBox className="text-brand-tertiary text-xs" /> Ukuran (Pack)
+                Ukuran (Pack)
               </span>
               <span className="font-black text-brand-tertiary">{size}</span>
             </div>
@@ -108,14 +73,14 @@ export default function OrderSuccessPage() {
 
             <div className="flex justify-between items-center">
               <span className="text-gray-600 text-xs flex items-center gap-1 font-bold">
-                <FaPepperHot className="text-red-500 text-xs" /> Pedas
+                Pedas
               </span>
               <span className="font-black text-red-600">{spicy}</span>
             </div>
           </div>
 
           <p className="text-xs text-center text-gray-500 italic">
-            Pesanan Anda sudah tercatat di sistem dapur dan siap disiapkan untuk tanggal <span className="font-bold">{orderDate}</span>.
+            Pesanan Anda sudah tercatat dan siap disiapkan <br /> untuk tanggal <span className="font-bold">{orderDate}</span>.
           </p>
 
           {/* TOMBOL AKSI */}

@@ -112,15 +112,14 @@ const handleSubmit = async (e: React.FormEvent) => {
         </div>
       </header>
 
-      {/* FORM BODY */}
-      <main className="flex-1 max-w-md w-full mx-auto p-4 flex flex-col justify-center">
+      <main className="flex-1 w-full px-4 py-8 sm:py-12 flex flex-col justify-center">
         {isSuccess ? (
-          <div className="bg-white p-6 rounded-2xl border-2 border-brand-tertiary shadow-[6px_6px_0px_0px_#1E1E1E] text-center space-y-4">
-            <div className="w-16 h-16 bg-brand-primary/30 text-brand-tertiary rounded-full flex items-center justify-center mx-auto text-3xl">
+          <div className="w-full max-w-[580px] mx-auto bg-white p-5 sm:p-8 rounded-[24px] border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E] text-center">
+            <div className="w-16 h-16 bg-[#96F2D7] text-[#1E1E1E] rounded-2xl flex items-center justify-center mx-auto">
               <FaCheckCircle className="text-emerald-600" />
             </div>
-            <h2 className="text-2xl font-black">Pesanan Terdaftar!</h2>
-            <p className="text-sm text-gray-600">
+            <h2 className="mt-5 text-2xl sm:text-3xl font-black">Pesanan Terdaftar!</h2>
+            <p className="mt-3 text-sm leading-6 text-gray-600">
               Terima kasih <span className="font-bold text-brand-tertiary">{customerName}</span>, pesanan Anda untuk tanggal <span className="font-bold">{orderDate}</span> telah tercatat di sistem dapur.
             </p>
             <button
@@ -128,7 +127,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 setIsSuccess(false);
                 setCustomerName("");
               }}
-              className="w-full py-3 bg-brand-secondary text-brand-tertiary font-extrabold rounded-xl border-2 border-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E]"
+              className="w-full mt-6 min-h-14 bg-[#FFD43B] text-[#1E1E1E] font-black rounded-2xl border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] transition-all"
             >
               Pesan Lagi
             </button>
@@ -136,48 +135,54 @@ const handleSubmit = async (e: React.FormEvent) => {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="bg-white p-6 rounded-2xl border-2 border-brand-tertiary shadow-[6px_6px_0px_0px_#1E1E1E] space-y-5"
+            className="w-full max-w-[600px] mx-auto bg-white p-5 sm:p-8 rounded-[24px] border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E] space-y-6"
           >
-            <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-              <GiCookie className="text-3xl text-brand-secondary" />
-              <div>
-                <h1 className="text-xl font-black">makar-oni</h1>
-                <p className="text-xs text-gray-500">Isi detail pesanan Anda di bawah ini</p>
+            <div className="flex items-center justify-between gap-4 border-b-2 border-slate-100 pb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#96F2D7] flex items-center justify-center text-[#1E1E1E]">
+                  <GiCookie className="text-2xl" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-black text-[#1E1E1E]">makar-oni</h1>
+                  <p className="text-xs text-gray-500">Isi detail pesanan Anda di bawah ini</p>
+                </div>
               </div>
+              <span className="shrink-0 bg-[#FFD43B] text-[#1E1E1E] px-2.5 py-1 rounded-full text-[10px] font-black tracking-wider">
+                STEP 2 / 2
+              </span>
             </div>
 
-            {/* Nama Pemesan */}
             <div>
-              <label className="block text-xs font-black uppercase mb-1">
+              <label className="block text-xs font-black uppercase tracking-wider mb-2" htmlFor="customer-name">
                 Nama Lengkap / Panggilan
               </label>
               <input
+                id="customer-name"
                 type="text"
                 required
                 placeholder="Contoh: Edward"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-                className="w-full p-3 rounded-xl border-2 border-brand-tertiary focus:outline-none focus:ring-2 focus:ring-brand-primary text-sm font-semibold"
+                className="w-full min-h-13 px-4 rounded-xl border-2 border-[#1E1E1E] bg-slate-50 focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-sm font-semibold transition-shadow"
               />
             </div>
 
-            {/* Ukuran Pack */}
             <div>
-            <label className="block text-xs font-black uppercase mb-1">Ukuran (Pack)</label>
-            <div className="grid grid-cols-3 gap-2">
+            <label className="block text-xs font-black uppercase tracking-wider mb-2">Ukuran (Pack)</label>
+            <div className="grid grid-cols-3 gap-3">
                 {sizeOptions.map((item) => (
                 <button
                     type="button"
                     key={item.label}
                     onClick={() => setSize(item.label)}
-                    className={`py-2 px-1 text-xs font-bold rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-0.5 ${
+                    className={`min-h-20 px-1 text-xs font-bold rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-1 ${
                     size === item.label
-                        ? "bg-brand-primary border-brand-tertiary text-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E]"
-                        : "border-gray-200 text-gray-600 hover:border-brand-tertiary"
+                        ? "bg-[#96F2D7] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
+                        : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
                     }`}
                 >
-                    <span>{item.label}</span>
-                    <span className="text-[10px] bg-brand-secondary text-brand-tertiary px-1.5 py-0.2 rounded-md font-black border border-brand-tertiary/20">
+                    <span className="font-black">{item.label}</span>
+                    <span className="text-[10px] bg-[#FFD43B] text-[#1E1E1E] px-1.5 py-0.5 rounded-md font-black border border-[#1E1E1E]/20">
                     {item.price}
                     </span>
                 </button>
@@ -185,19 +190,18 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
             </div>
 
-            {/* Varian Rasa */}
             <div>
-              <label className="block text-xs font-black uppercase mb-1">Varian Rasa</label>
-              <div className="grid grid-cols-2 gap-2">
+              <label className="block text-xs font-black uppercase tracking-wider mb-2">Varian Rasa</label>
+              <div className="grid grid-cols-2 gap-3">
                 {flavorOptions.map((item) => (
                   <button
                     type="button"
                     key={item}
                     onClick={() => setFlavor(item)}
-                    className={`py-2.5 px-2 text-xs font-bold rounded-xl border-2 transition-all ${
+                    className={`min-h-13 px-3 text-xs font-bold rounded-xl border-2 transition-all ${
                       flavor === item
-                        ? "bg-brand-secondary border-brand-tertiary text-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E]"
-                        : "border-gray-200 text-gray-600 hover:border-brand-tertiary"
+                        ? "bg-[#FFD43B] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
+                        : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
                     }`}
                   >
                     {item}
@@ -206,19 +210,17 @@ const handleSubmit = async (e: React.FormEvent) => {
               </div>
             </div>
 
-            {/* Level Pedas (Smooth Slider Gradasi) */}
-            <div className="space-y-2">
-            <div className="flex justify-between items-center">
-                <label className="text-xs font-black uppercase flex items-center gap-1">
-                <FaPepperHot className={spicyValue > 15 ? "text-red-500" : "text-gray-400"} />
-                Tingkat Pedas
+            <div className="space-y-3">
+            <div className="flex justify-between items-center gap-3">
+                <label className="text-xs font-black uppercase tracking-wider flex items-center gap-2">
+                  <FaPepperHot className={spicyValue > 15 ? "text-red-500" : "text-gray-400"} />
+                  Tingkat Pedas
                 </label>
-                <span className="text-xs font-black px-2.5 py-0.5 rounded-lg bg-brand-tertiary text-white border border-brand-tertiary transition-all">
+                <span className="text-xs font-black px-2.5 py-1 rounded-lg bg-[#1E1E1E] text-white border-2 border-[#1E1E1E] transition-all">
                 {spicyLevel}
                 </span>
             </div>
 
-            {/* Slider Control Smooth */}
             <div className="relative pt-1">
                 <input
                 type="range"
@@ -226,28 +228,27 @@ const handleSubmit = async (e: React.FormEvent) => {
                 max="100"
                 value={spicyValue}
                 onChange={(e) => setSpicyValue(Number(e.target.value))}
-                className="w-full h-3 rounded-lg appearance-none cursor-pointer border-2 border-brand-tertiary accent-brand-tertiary shadow-[1px_1px_0px_0px_#1E1E1E]"
+                aria-label="Tingkat pedas"
+                className="w-full h-4 rounded-full appearance-none cursor-pointer border-2 border-[#1E1E1E] accent-[#1E1E1E] shadow-[2px_2px_0_#1E1E1E]"
                 style={{
                     background: "linear-gradient(to right, #FFD43B 0%, #FF922B 40%, #FF6B6B 75%, #E03131 100%)",
                 }}
                 />
 
-                {/* Indikator Titik Level */}
-                <div className="flex justify-between text-[10px] font-extrabold text-gray-500 mt-1 uppercase">
-                <span>Tidak Pedas</span>
-                <span>Dikit</span>
-                <span>Sedang</span>
-                <span>Aduh Pedas 🔥</span>
+                <div className="grid grid-cols-4 gap-1 text-center text-[9px] sm:text-[10px] font-extrabold text-gray-500 mt-2 uppercase">
+                  <span>Tidak Pedas</span>
+                  <span>Dikit</span>
+                  <span>Sedang</span>
+                  <span>Aduh Pedas</span>
                 </div>
             </div>
             </div>            
-            {/* Submit Button */}
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full py-3.5 bg-brand-primary text-brand-tertiary font-black rounded-xl border-2 border-brand-tertiary shadow-[3px_3px_0px_0px_#1E1E1E] hover:opacity-90 transition-all text-sm uppercase tracking-wide disabled:opacity-50"
+              disabled={isSubmitting || !customerName.trim()}
+              className="w-full min-h-14 px-5 bg-[#96F2D7] text-[#1E1E1E] font-black rounded-2xl border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-gray-500 disabled:shadow-[4px_4px_0_#94a3b8] disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#94a3b8] transition-all text-sm uppercase tracking-wide"
             >
-              {isSubmitting ? "Menyimpan..." : "Kirim Pesanan"}
+              {isSubmitting ? "Loading Sebentar..." : "Buat Pesanan"}
             </button>
           </form>
         )}
