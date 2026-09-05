@@ -75,7 +75,7 @@ function Navbar() {
         </Link>
         <div className="nav-actions">
           <a
-            className="button button-outline nav-contact"
+            className="button button-outline border-sketch-btn nav-contact"
             href="https://wa.me/6281290158831"
             target="_blank"
             rel="noreferrer"
@@ -84,7 +84,7 @@ function Navbar() {
             <span>Contact</span>
           </a>
           <button
-            className="button button-mint"
+            className="button button-mint border-sketch-btn"
             onClick={() => router.push("/select-date")}
           >
             Order Now
@@ -99,13 +99,13 @@ function HeroText() {
   const router = useRouter();
   return (
     <div className="hero-copy">
-      <div className="eyebrow">
+      <div className="eyebrow border-sketch">
         <CalendarDays size={19} />
         Sistem Pesan H-1 Kantor
       </div>
       <h1>Camilan Gurih & Renyah</h1>
       <button
-        className="button button-yellow hero-cta mt-4"
+        className="button button-yellow border-sketch-btn hero-cta mt-4"
         onClick={() => router.push("/select-date")}
       >
         Mulai Pesan Sekarang
@@ -116,12 +116,12 @@ function HeroText() {
 }
 
 // function FeatureCards() {
-//   return <div className="feature-cards" aria-label="Order features">{featureCards.map(({ icon: Icon, label, detail, tone }) => <div className="feature-card" key={label}><span className={`feature-icon ${tone}`}><Icon size={23} strokeWidth={2} /></span><span><strong>{label}</strong><small>{detail}</small></span></div>)}</div>;
+//   return <div className="feature-cards" aria-label="Order features">{featureCards.map(({ icon: Icon, label, detail, tone }) => <div className="feature-card border-sketch-alt" key={label}><span className={`feature-icon ${tone}`}><Icon size={23} strokeWidth={2} /></span><span><strong>{label}</strong><small>{detail}</small></span></div>)}</div>;
 // }
 
 function ProductVisual() {
   return (
-    <div className="product-stage">
+    <div className="product-stage overflow-x-hidden">
       <Image
         className="floating-macaroni macaroni-left"
         src="/images/dummy-macaroni-right.png"

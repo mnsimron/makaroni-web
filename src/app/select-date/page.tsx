@@ -55,7 +55,7 @@ export default function SelectDatePage() {
     <div className="min-h-screen bg-slate-50 text-brand-tertiary flex flex-col font-sans">
       <header className="site-nav"><div className="nav-inner">
         <Link href="/" className="brand" aria-label="makar-oni home"><span className="brand-name">makar-oni</span></Link>
-        <div className="nav-actions"><a className="button button-outline nav-contact" href="https://wa.me/6281290158831" target="_blank" rel="noreferrer"><MessageCircle size={17} /><span>Contact</span></a><Link href="/" className="button button-mint">Home</Link></div>
+        <div className="nav-actions"><a className="button nav-contact border-sketch-btn" href="https://wa.me/6281290158831" target="_blank" rel="noreferrer"><MessageCircle size={17} /><span>Contact</span></a><Link href="/" className="button button-mint border-sketch-btn">Home</Link></div>
       </div></header>
 
       <main className="flex-1 w-full px-4 py-8 sm:py-12 flex flex-col justify-center">
@@ -67,10 +67,10 @@ export default function SelectDatePage() {
           Kembali ke Beranda
         </Link>
 
-        <div className="w-full max-w-[580px] mx-auto bg-white p-5 sm:p-8 rounded-[24px] border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E]">
+        <div className="w-full max-w-[580px] mx-auto bg-white p-5 sm:p-8 border-sketch border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E]">
           <div className="flex items-start justify-between gap-4 pb-6 border-b-2 border-slate-100">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 shrink-0 rounded-2xl bg-[#96F2D7] flex items-center justify-center text-[#1E1E1E]">
+              <div className="w-14 h-14 shrink-0 border-sketch-alt bg-[#96F2D7] flex items-center justify-center text-[#1E1E1E]">
                 <CalendarDays size={28} strokeWidth={2.5} />
               </div>
               <div>
@@ -78,7 +78,7 @@ export default function SelectDatePage() {
                 <p className="mt-1 text-sm text-gray-500">Pilih tanggal untuk menikmati makaroni.</p>
               </div>
             </div>
-            <span className="shrink-0 bg-[#FFD43B] text-[#1E1E1E] px-2.5 py-1 rounded-full text-[10px] font-black tracking-wider">
+            <span className="shrink-0 bg-[#FFD43B] text-[#1E1E1E] px-2.5 py-1 border-sketch-btn text-[10px] font-black tracking-wider">
               ORDER H-1
             </span>
           </div>
@@ -104,14 +104,14 @@ export default function SelectDatePage() {
                   }
                   setSelectedDate(date);
                 }}
-                className="w-full min-h-14 px-4 rounded-2xl border-2 border-[#1E1E1E] focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-[#1E1E1E] font-bold bg-slate-50 transition-shadow"
+                className="w-full min-h-14 px-4 border-sketch border-2 border-[#1E1E1E] focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-[#1E1E1E] font-bold bg-slate-50 transition-shadow"
               />
             </div>
 
             <button
               type="submit"
               disabled={!selectedDate}
-              className="w-full min-h-14 px-5 bg-[#FFD43B] text-[#1E1E1E] font-black rounded-2xl border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#1E1E1E] transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+              className="w-full min-h-14 px-5 bg-[#FFD43B] text-[#1E1E1E] font-black border-sketch-btn border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#1E1E1E] transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               <span>Lanjutkan Pemesanan</span>
               <FaArrowRight />

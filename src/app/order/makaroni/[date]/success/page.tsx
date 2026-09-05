@@ -32,7 +32,7 @@ export default function OrderSuccessPage() {
 
       {/* BODY KARTU REKAP DETAIL */}
       <main className="flex-1 max-w-md w-full mx-auto p-4 flex flex-col justify-center my-6">
-        <div className="bg-white p-6 rounded-2xl border-2 border-brand-tertiary shadow-[6px_6px_0px_0px_#1E1E1E] space-y-5 relative">
+        <div className="bg-white p-6 border-sketch border-2 border-brand-tertiary shadow-[6px_6px_0px_0px_#1E1E1E] space-y-5 relative">
           
           {/* Badge Status Sukses */}
           <div className="flex items-center justify-between border-b-2 border-gray-100 pb-4">
@@ -40,20 +40,20 @@ export default function OrderSuccessPage() {
               <FaCheckCircle className="text-xl" />
               <span>Pesanan Terdaftar</span>
             </div>
-            <span className="text-xs font-black bg-brand-primary text-brand-tertiary px-2.5 py-1 rounded-full border border-brand-tertiary/30">
+            <span className="text-xs font-black bg-brand-primary text-brand-tertiary px-2.5 py-1 border-sketch-btn border border-brand-tertiary/30">
               {orderDate}
             </span>
           </div>
 
           <div className="text-center py-2">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Kode Pesanan</span>
-            <h1 className="text-3xl font-black text-brand-tertiary bg-brand-secondary/30 py-1 px-4 rounded-xl border border-brand-secondary inline-block mt-1">
+            <h1 className="text-3xl font-black text-brand-tertiary bg-brand-secondary/30 py-1 px-4 border-sketch-btn border border-brand-secondary inline-block mt-1">
               {orderCode}
             </h1>
           </div>
 
           {/* DETAIL LISTING ITEM */}
-          <div className="space-y-2.5 text-sm font-semibold bg-slate-50 p-4 rounded-xl border border-gray-200">
+          <div className="space-y-2.5 text-sm font-semibold bg-slate-50 p-4 border-sketch-alt border border-gray-200">
             <div className="flex justify-between items-center border-b border-gray-200 pb-2">
               <span className="text-gray-500 text-xs font-bold uppercase">Nama Pemesan</span>
               <span className="font-extrabold text-base text-brand-tertiary">{name}</span>
@@ -87,13 +87,13 @@ export default function OrderSuccessPage() {
           <div className="space-y-2 pt-2">
             <button
               onClick={() => router.push(`/order/makaroni/${orderDate}`)}
-              className="w-full py-3 bg-brand-secondary text-brand-tertiary font-extrabold rounded-xl border-2 border-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E] hover:opacity-90 transition-all text-sm"
+              className="w-full py-3 bg-brand-secondary text-brand-tertiary font-extrabold border-sketch-btn border-2 border-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E] hover:opacity-90 transition-all text-sm"
             >
               Pesan Lagi Untuk Tanggal Ini
             </button>
             <button
               onClick={() => router.push("/")}
-              className="w-full py-2.5 bg-gray-100 text-gray-700 font-bold rounded-xl border-2 border-transparent hover:border-brand-tertiary transition-all text-xs"
+              className="w-full py-2.5 bg-gray-100 text-gray-700 font-bold border-sketch-btn border-2 border-transparent hover:border-brand-tertiary transition-all text-xs"
             >
               Kembali ke Halaman Utama
             </button>

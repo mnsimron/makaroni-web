@@ -169,14 +169,14 @@ export default function AdminDashboard() {
                 setIsSummaryOpen(true);
                 setCopied(false);
               }}
-              className="p-2 bg-emerald-100 text-emerald-700 rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
+              className="p-2 bg-emerald-100 text-emerald-700 border-sketch-btn border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
               title="Bagikan Ringkasan WhatsApp"
             >
               <FaWhatsapp className="text-sm" />
             </button>
             <button
               onClick={() => fetchOrders(selectedDate)}
-              className="p-2 bg-brand-secondary rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
+              className="p-2 bg-brand-secondary border-sketch-btn border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
               title="Refresh Data"
             >
               <FaRedo className={`text-sm ${loading ? "animate-spin" : ""}`} />
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
 
       <main className="flex-1 max-w-4xl w-full mx-auto p-4 space-y-6">
         {/* PANEL FILTER TANGGAL & RINGKASAN */}
-        <div className="bg-white p-4 rounded-2xl border-2 border-brand-tertiary shadow-[4px_4px_0px_0px_#1E1E1E] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="bg-white p-4 border-sketch border-2 border-brand-tertiary shadow-[4px_4px_0px_0px_#1E1E1E] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block">
               Menampilkan Pesanan Untuk:
@@ -202,17 +202,17 @@ export default function AdminDashboard() {
             <input
               type="date"
               onChange={handleDateChange}
-              className="p-2 text-xs font-bold rounded-xl border-2 border-brand-tertiary bg-slate-50 focus:outline-none"
+              className="p-2 text-xs font-bold border-sketch border-2 border-brand-tertiary bg-slate-50 focus:outline-none"
             />
             <button
               onClick={handleCopyOrderLink}
-              className="p-2 bg-brand-primary rounded-xl border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
+              className="p-2 bg-brand-primary border-sketch-btn border-2 border-brand-tertiary hover:opacity-90 transition-all shadow-[2px_2px_0px_0px_#1E1E1E]"
               title={linkCopied ? "Link berhasil disalin" : "Salin link pesanan"}
               aria-label={linkCopied ? "Link berhasil disalin" : "Salin link pesanan"}
             >
               {linkCopied ? <FaCheck className="text-sm" /> : <FaLink className="text-sm" />}
             </button>
-            <div className="bg-brand-primary/40 border-2 border-brand-tertiary px-3 py-1.5 rounded-xl text-xs font-black">
+            <div className="bg-brand-primary/40 border-sketch-btn border-2 border-brand-tertiary px-3 py-1.5 text-xs font-black">
               Total: {orders.length} Pack
             </div>
           </div>
@@ -224,10 +224,10 @@ export default function AdminDashboard() {
             Memuat data pesanan...
           </div>
         ) : orders.length === 0 ? (
-          <div className="bg-white rounded-2xl p-8 border-2 border-brand-tertiary shadow-[4px_4px_0px_0px_#1E1E1E] text-center space-y-2">
+          <div className="bg-white border-sketch p-8 border-2 border-brand-tertiary shadow-[4px_4px_0px_0px_#1E1E1E] text-center space-y-2">
             <p className="font-bold text-gray-500">Belum ada pesanan terdaftar untuk tanggal ini.</p>
-            <p className="text-xs text-gray-400">
-              Bagikan link <code className="bg-slate-100 px-1 py-0.5 rounded border">/order/makaroni/{selectedDate}</code> ke teman kantor Anda.
+              <p className="text-xs text-gray-400">
+              Bagikan link <code className="bg-slate-100 px-1 py-0.5 border-sketch-alt border">/order/makaroni/{selectedDate}</code> ke teman kantor Anda.
             </p>
           </div>
         ) : (
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
               return (
                 <div
                   key={item.id}
-                  className={`bg-white rounded-2xl p-5 border-2 border-brand-tertiary transition-all relative ${
+                  className={`bg-white border-sketch p-5 border-2 border-brand-tertiary transition-all relative ${
                     isCompleted
                       ? "opacity-60 bg-gray-50 shadow-none border-dashed"
                       : "shadow-[4px_4px_0px_0px_#1E1E1E]"
@@ -246,13 +246,13 @@ export default function AdminDashboard() {
                 >
                   {/* HEADER CARD */}
                   <div className="flex justify-between items-center border-b-2 border-gray-100 pb-2 mb-3">
-                    <span className="font-black text-lg text-brand-tertiary tracking-wide bg-brand-secondary/30 px-2.5 py-0.5 rounded-lg border border-brand-secondary">
+                    <span className="font-black text-lg text-brand-tertiary tracking-wide bg-brand-secondary/30 px-2.5 py-0.5 border-sketch-btn border border-brand-secondary">
                       {item.order_code}
                     </span>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => toggleComplete(item.id)}
-                        className={`p-1.5 rounded-lg border-2 border-brand-tertiary transition-all ${
+                        className={`p-1.5 border-sketch-btn border-2 border-brand-tertiary transition-all ${
                           isCompleted
                             ? "bg-emerald-400 text-white"
                             : "bg-slate-100 hover:bg-emerald-100"
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
                       </button>
                       <button
                         onClick={() => handleDelete(item.id)}
-                        className="p-1.5 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg border-2 border-brand-tertiary transition-all"
+                        className="p-1.5 bg-red-100 hover:bg-red-200 text-red-600 border-sketch-btn border-2 border-brand-tertiary transition-all"
                         title="Hapus Pesanan"
                       >
                         <FaTrashAlt className="text-xs" />
@@ -280,19 +280,19 @@ export default function AdminDashboard() {
                       </span>
                     </div>
 
-                    <div className="flex justify-between items-center bg-slate-50 p-2 rounded-xl border border-gray-200">
+                    <div className="flex justify-between items-center bg-slate-50 p-2 border-sketch-alt border border-gray-200">
                       <span className="text-gray-600 text-xs flex items-center gap-1 font-bold">
                         <FaBox className="text-brand-tertiary text-xs" /> Ukuran (pack)
                       </span>
                       <span className="font-black text-brand-tertiary">{item.size}</span>
                     </div>
 
-                    <div className="flex justify-between items-center bg-slate-50 p-2 rounded-xl border border-gray-200">
+                    <div className="flex justify-between items-center bg-slate-50 p-2 border-sketch-alt border border-gray-200">
                       <span className="text-gray-600 text-xs font-bold">Rasa</span>
                       <span className="font-black text-emerald-700">{item.flavor}</span>
                     </div>
 
-                    <div className="flex justify-between items-center bg-slate-50 p-2 rounded-xl border border-gray-200">
+                    <div className="flex justify-between items-center bg-slate-50 p-2 border-sketch-alt border border-gray-200">
                       <span className="text-gray-600 text-xs flex items-center gap-1 font-bold">
                         <FaPepperHot className="text-red-500 text-xs" /> Pedas
                       </span>
@@ -315,7 +315,7 @@ export default function AdminDashboard() {
           onClick={() => setIsSummaryOpen(false)}
         >
           <div
-            className="w-full max-w-lg rounded-2xl border-2 border-brand-tertiary bg-white p-5 shadow-[6px_6px_0px_0px_#1E1E1E]"
+            className="w-full max-w-lg border-sketch border-2 border-brand-tertiary bg-white p-5 shadow-[6px_6px_0px_0px_#1E1E1E]"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-4 flex items-center justify-between">
@@ -324,7 +324,7 @@ export default function AdminDashboard() {
               </h2>
               <button
                 onClick={() => setIsSummaryOpen(false)}
-                className="rounded-lg border-2 border-brand-tertiary p-1.5 hover:bg-slate-100"
+                className="border-sketch-btn border-2 border-brand-tertiary p-1.5 hover:bg-slate-100"
                 title="Tutup"
                 aria-label="Tutup ringkasan"
               >
@@ -335,12 +335,12 @@ export default function AdminDashboard() {
               value={orderSummary}
               readOnly
               rows={Math.min(Math.max(orders.length + 3, 5), 14)}
-              className="mb-4 w-full resize-none rounded-xl border-2 border-brand-tertiary bg-slate-50 p-3 text-sm font-semibold focus:outline-none"
+              className="mb-4 w-full resize-none border-sketch border-2 border-brand-tertiary bg-slate-50 p-3 text-sm font-semibold focus:outline-none"
               aria-label="Pratinjau ringkasan pesanan"
             />
             <button
               onClick={handleCopySummary}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-brand-tertiary bg-brand-primary px-4 py-2.5 font-black shadow-[2px_2px_0px_0px_#1E1E1E] hover:opacity-90"
+              className="flex w-full items-center justify-center gap-2 border-sketch-btn border-2 border-brand-tertiary bg-brand-primary px-4 py-2.5 font-black shadow-[2px_2px_0px_0px_#1E1E1E] hover:opacity-90"
             >
               <FaCopy />
               {copied ? "Copied!" : "Copy to Clipboard"}

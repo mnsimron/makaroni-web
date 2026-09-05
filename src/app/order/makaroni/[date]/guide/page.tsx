@@ -31,7 +31,7 @@ export default function GuidePage() {
           >
             <ChevronLeft size={15} /> Kembali
           </button>
-          <span className="text-xs font-black bg-brand-primary text-brand-tertiary px-2.5 py-1 rounded-full">
+          <span className="text-xs font-black bg-brand-primary text-brand-tertiary px-2.5 py-1 border-sketch-btn">
             Pesanan: {orderDate}
           </span>
         </div>
@@ -40,7 +40,7 @@ export default function GuidePage() {
       <main className="w-full px-4 py-10 sm:px-6 sm:py-14">
         <section className="mx-auto max-w-[1160px]">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex rounded-full bg-[#FFD43B] px-4 py-2 text-xs font-black tracking-widest">
+            <span className="inline-flex border-sketch-btn bg-[#FFD43B] px-4 py-2 text-xs font-black tracking-widest">
               STEP 1 OF 2
             </span>
             <h1 className="mt-5 text-3xl font-black leading-tight sm:text-5xl">
@@ -51,9 +51,9 @@ export default function GuidePage() {
             </p>
           </div>
 
-          <section className="mt-10 rounded-[24px] border-[3px] border-[#1E1E1E] bg-white p-5 shadow-[6px_6px_0_#1E1E1E] sm:mt-14 sm:p-8">
+          <section className="mt-10 border-sketch border-[3px] border-[#1E1E1E] bg-white p-5 shadow-[6px_6px_0_#1E1E1E] sm:mt-14 sm:p-8">
             <div className="flex items-start gap-4 border-b-2 border-slate-100 pb-5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#96F2D7]">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center border-sketch-alt bg-[#96F2D7]">
                 <Package size={25} strokeWidth={2.5} />
               </div>
               <div>
@@ -68,14 +68,14 @@ export default function GuidePage() {
               {portionOptions.map((portion) => (
                 <article
                   key={portion.name}
-                  className={`relative rounded-2xl border-[3px] p-4 text-center transition-transform hover:-translate-y-1 ${
+                  className={`relative border-sketch border-[3px] p-4 text-center transition-transform hover:-translate-y-1 ${
                     portion.recommended
                       ? "border-[#1E1E1E] bg-[#96F2D7] shadow-[4px_4px_0_#1E1E1E]"
                       : "border-slate-200 bg-white shadow-[3px_3px_0_#dbe3e8]"
                   }`}
                 >
                   {portion.recommended && (
-                    <span className="absolute right-3 top-3 rounded-full border-2 border-[#1E1E1E] bg-[#FFD43B] px-2 py-1 text-[10px] font-black tracking-wider">
+                    <span className="absolute right-3 top-3 border-sketch-btn border-2 border-[#1E1E1E] bg-[#FFD43B] px-2 py-1 text-[10px] font-black tracking-wider">
                       FAVORIT
                     </span>
                   )}
@@ -96,9 +96,9 @@ export default function GuidePage() {
             </div>
           </section>
 
-          <section className="mt-8 rounded-[24px] border-[3px] border-[#1E1E1E] bg-white p-5 shadow-[6px_6px_0_#1E1E1E] sm:mt-10 sm:p-8">
+          <section className="mt-8 border-sketch border-[3px] border-[#1E1E1E] bg-white p-5 shadow-[6px_6px_0_#1E1E1E] sm:mt-10 sm:p-8">
             <div className="flex items-start gap-4 border-b-2 border-slate-100 pb-5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFD43B]">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center border-sketch-alt bg-[#FFD43B]">
                 <Flame size={25} strokeWidth={2.5} />
               </div>
               <div>
@@ -109,14 +109,14 @@ export default function GuidePage() {
 
             <div className="mt-6 grid gap-5 md:grid-cols-3">
               {spiceOptions.map((spice) => (
-                <article key={spice.name} className="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5">
+                <article key={spice.name} className="border-sketch-alt border-2 border-slate-200 bg-slate-50 p-5">
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="font-black tracking-wide">{spice.name}</h3>
                     {spice.hot ? <Flame size={19} className="text-red-500" /> : <Box size={19} className="text-[#1E1E1E]" />}
                   </div>
                   <div className="mt-5 flex h-14 items-end gap-2" aria-label={`${spice.amount} level pedas`}>
                     {Array.from({ length: spice.scoops }).map((_, index) => (
-                      <span key={index} className="h-10 w-10 rounded-full border-2 border-[#1E1E1E] bg-gradient-to-t from-red-500 to-orange-300 shadow-[2px_2px_0_#1E1E1E]" />
+                      <span key={index} className="h-10 w-10 border-sketch-alt border-2 border-[#1E1E1E] bg-gradient-to-t from-red-500 to-orange-300 shadow-[2px_2px_0_#1E1E1E]" />
                     ))}
                   </div>
                   <p className="mt-4 text-lg font-black">{spice.amount}</p>
@@ -127,10 +127,10 @@ export default function GuidePage() {
           </section>
 
           <div className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:mt-12 sm:flex-row">
-            <button onClick={() => router.back()} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#1E1E1E] bg-white px-5 font-black transition-transform hover:-translate-y-0.5">
+            <button onClick={() => router.back()} className="inline-flex min-h-14 items-center justify-center gap-2 border-sketch-btn border-2 border-[#1E1E1E] bg-white px-5 font-black transition-transform hover:-translate-y-0.5">
               <ChevronLeft size={19} /> Kembali
             </button>
-            <button onClick={() => router.push(`/order/makaroni/${orderDate}`)} className="inline-flex min-h-14 flex-1 items-center justify-center gap-3 rounded-2xl border-[3px] border-[#1E1E1E] bg-[#FFD43B] px-5 font-black shadow-[4px_4px_0_#1E1E1E] transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-1 active:translate-y-1 active:shadow-none">
+            <button onClick={() => router.push(`/order/makaroni/${orderDate}`)} className="inline-flex min-h-14 flex-1 items-center justify-center gap-3 border-sketch-btn border-[3px] border-[#1E1E1E] bg-[#FFD43B] px-5 font-black shadow-[4px_4px_0_#1E1E1E] transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-1 active:translate-y-1 active:shadow-none">
               Sudah Mengerti, Lanjutkan Pesan <ArrowRight size={20} />
             </button>
           </div>

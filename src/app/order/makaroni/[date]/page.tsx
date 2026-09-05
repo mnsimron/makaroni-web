@@ -106,7 +106,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           >
             <FaArrowLeft /> Kembali
           </button>
-          <span className="text-xs font-black bg-brand-primary text-brand-tertiary px-2.5 py-1 rounded-full">
+          <span className="text-xs font-black bg-brand-primary text-brand-tertiary px-2.5 py-1 border-sketch-btn">
             Pesanan: {orderDate}
           </span>
         </div>
@@ -114,8 +114,8 @@ const handleSubmit = async (e: React.FormEvent) => {
 
       <main className="flex-1 w-full px-4 py-8 sm:py-12 flex flex-col justify-center">
         {isSuccess ? (
-          <div className="w-full max-w-[580px] mx-auto bg-white p-5 sm:p-8 rounded-[24px] border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E] text-center">
-            <div className="w-16 h-16 bg-[#96F2D7] text-[#1E1E1E] rounded-2xl flex items-center justify-center mx-auto">
+          <div className="w-full max-w-[580px] mx-auto bg-white p-5 sm:p-8 border-sketch border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E] text-center">
+            <div className="w-16 h-16 bg-[#96F2D7] text-[#1E1E1E] border-sketch-alt flex items-center justify-center mx-auto">
               <FaCheckCircle className="text-emerald-600" />
             </div>
             <h2 className="mt-5 text-2xl sm:text-3xl font-black">Pesanan Terdaftar!</h2>
@@ -127,7 +127,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 setIsSuccess(false);
                 setCustomerName("");
               }}
-              className="w-full mt-6 min-h-14 bg-[#FFD43B] text-[#1E1E1E] font-black rounded-2xl border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] transition-all"
+              className="w-full mt-6 min-h-14 bg-[#FFD43B] text-[#1E1E1E] font-black border-sketch-btn border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] transition-all"
             >
               Pesan Lagi
             </button>
@@ -135,11 +135,11 @@ const handleSubmit = async (e: React.FormEvent) => {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="w-full max-w-[600px] mx-auto bg-white p-5 sm:p-8 rounded-[24px] border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E] space-y-6"
+            className="w-full max-w-[600px] mx-auto bg-white p-5 sm:p-8 border-sketch border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E] space-y-6"
           >
             <div className="flex items-center justify-between gap-4 border-b-2 border-slate-100 pb-5">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#96F2D7] flex items-center justify-center text-[#1E1E1E]">
+                <div className="w-12 h-12 border-sketch-alt bg-[#96F2D7] flex items-center justify-center text-[#1E1E1E]">
                   <GiCookie className="text-2xl" />
                 </div>
                 <div>
@@ -147,7 +147,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <p className="text-xs text-gray-500">Isi detail pesanan Anda di bawah ini</p>
                 </div>
               </div>
-              <span className="shrink-0 bg-[#FFD43B] text-[#1E1E1E] px-2.5 py-1 rounded-full text-[10px] font-black tracking-wider">
+              <span className="shrink-0 bg-[#FFD43B] text-[#1E1E1E] px-2.5 py-1 border-sketch-btn text-[10px] font-black tracking-wider">
                 STEP 2 / 2
               </span>
             </div>
@@ -163,7 +163,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 placeholder="Contoh: Edward"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-                className="w-full min-h-13 px-4 rounded-xl border-2 border-[#1E1E1E] bg-slate-50 focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-sm font-semibold transition-shadow"
+                className="w-full min-h-13 px-4 border-sketch border-2 border-[#1E1E1E] bg-slate-50 focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-sm font-semibold transition-shadow"
               />
             </div>
 
@@ -175,14 +175,14 @@ const handleSubmit = async (e: React.FormEvent) => {
                     type="button"
                     key={item.label}
                     onClick={() => setSize(item.label)}
-                    className={`min-h-20 px-1 text-xs font-bold rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-1 ${
+                    className={`min-h-20 px-1 text-xs font-bold border-sketch-btn border-2 transition-all flex flex-col items-center justify-center gap-1 ${
                     size === item.label
                         ? "bg-[#96F2D7] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
                         : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
                     }`}
                 >
                     <span className="font-black">{item.label}</span>
-                    <span className="text-[10px] bg-[#FFD43B] text-[#1E1E1E] px-1.5 py-0.5 rounded-md font-black border border-[#1E1E1E]/20">
+                    <span className="text-[10px] bg-[#FFD43B] text-[#1E1E1E] px-1.5 py-0.5 border-sketch-btn font-black border border-[#1E1E1E]/20">
                     {item.price}
                     </span>
                 </button>
@@ -198,7 +198,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     type="button"
                     key={item}
                     onClick={() => setFlavor(item)}
-                    className={`min-h-13 px-3 text-xs font-bold rounded-xl border-2 transition-all ${
+                    className={`min-h-13 px-3 text-xs font-bold border-sketch-btn border-2 transition-all ${
                       flavor === item
                         ? "bg-[#FFD43B] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
                         : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
@@ -216,7 +216,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <FaPepperHot className={spicyValue > 15 ? "text-red-500" : "text-gray-400"} />
                   Tingkat Pedas
                 </label>
-                <span className="text-xs font-black px-2.5 py-1 rounded-lg bg-[#1E1E1E] text-white border-2 border-[#1E1E1E] transition-all">
+                <span className="text-xs font-black px-2.5 py-1 border-sketch-btn bg-[#1E1E1E] text-white border-2 border-[#1E1E1E] transition-all">
                 {spicyLevel}
                 </span>
             </div>
@@ -229,7 +229,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 value={spicyValue}
                 onChange={(e) => setSpicyValue(Number(e.target.value))}
                 aria-label="Tingkat pedas"
-                className="w-full h-4 rounded-full appearance-none cursor-pointer border-2 border-[#1E1E1E] accent-[#1E1E1E] shadow-[2px_2px_0_#1E1E1E]"
+                className="w-full h-4 border-sketch-btn appearance-none cursor-pointer border-2 border-[#1E1E1E] accent-[#1E1E1E] shadow-[2px_2px_0_#1E1E1E]"
                 style={{
                     background: "linear-gradient(to right, #FFD43B 0%, #FF922B 40%, #FF6B6B 75%, #E03131 100%)",
                 }}
@@ -246,7 +246,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             <button
               type="submit"
               disabled={isSubmitting || !customerName.trim()}
-              className="w-full min-h-14 px-5 bg-[#96F2D7] text-[#1E1E1E] font-black rounded-2xl border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-gray-500 disabled:shadow-[4px_4px_0_#94a3b8] disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#94a3b8] transition-all text-sm uppercase tracking-wide"
+              className="w-full min-h-14 px-5 bg-[#96F2D7] text-[#1E1E1E] font-black border-sketch-btn border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-gray-500 disabled:shadow-[4px_4px_0_#94a3b8] disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#94a3b8] transition-all text-sm uppercase tracking-wide"
             >
               {isSubmitting ? "Loading Sebentar..." : "Buat Pesanan"}
             </button>
