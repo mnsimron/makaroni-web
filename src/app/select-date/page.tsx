@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { CalendarDays, Heart, Leaf, MessageCircle, Zap } from "lucide-react";
 
@@ -9,9 +10,38 @@ export default function SelectDatePage() {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState("");
 
+  const formatDateForInput = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const today = new Date();
+  const minDateValue = new Date(today);
+  minDateValue.setDate(today.getDate() + 1);
+  const maxDateValue = new Date(today);
+  maxDateValue.setDate(today.getDate() + 5);
+  const minDate = formatDateForInput(minDateValue);
+  const maxDate = formatDateForInput(maxDateValue);
+
+  const isWeekend = (dateString: string) => {
+    const [year, month, day] = dateString.split("-").map(Number);
+    const date = new Date(year, month - 1, day);
+    return date.getDay() === 0 || date.getDay() === 6;
+  };
+
   const handleDateSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedDate) return;
+
+    if (isWeekend(selectedDate)) {
+      alert("Maaf, pengiriman libur di akhir pekan! Silakan pilih hari kerja.");
+      setSelectedDate("");
+      return;
+    }
+
+    if (selectedDate < minDate || selectedDate > maxDate) return;
 
     // Format tanggal YYYY-MM-DD ke DD-MM-YYYY
     const [year, month, day] = selectedDate.split("-");
@@ -24,18 +54,18 @@ export default function SelectDatePage() {
   return (
     <div className="min-h-screen bg-slate-50 text-brand-tertiary flex flex-col font-sans">
       <header className="site-nav"><div className="nav-inner">
-        <button onClick={() => router.push("/")} className="brand" aria-label="makar-oni home"><span className="brand-name">makar-oni</span></button>
-        <div className="nav-actions"><a className="button button-outline nav-contact" href="https://wa.me/6281290158831" target="_blank" rel="noreferrer"><MessageCircle size={17} /><span>Contact</span></a><button className="button button-mint" onClick={() => router.push("/")}>Home</button></div>
+        <Link href="/" className="brand" aria-label="makar-oni home"><span className="brand-name">makar-oni</span></Link>
+        <div className="nav-actions"><a className="button button-outline nav-contact" href="https://wa.me/6281290158831" target="_blank" rel="noreferrer"><MessageCircle size={17} /><span>Contact</span></a><Link href="/" className="button button-mint">Home</Link></div>
       </div></header>
 
       <main className="flex-1 w-full px-4 py-8 sm:py-12 flex flex-col justify-center">
-        <button
-          onClick={() => router.push("/")}
+        <Link
+          href="/"
           className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-brand-tertiary mb-5 mx-auto w-full max-w-[580px] transition-colors"
         >
           <FaArrowLeft className="text-xs" />
           Kembali ke Beranda
-        </button>
+        </Link>
 
         <div className="w-full max-w-[580px] mx-auto bg-white p-5 sm:p-8 rounded-[24px] border-2 border-[#1E1E1E] shadow-[6px_6px_0_#1E1E1E]">
           <div className="flex items-start justify-between gap-4 pb-6 border-b-2 border-slate-100">
@@ -62,8 +92,18 @@ export default function SelectDatePage() {
                 id="order-date"
                 type="date"
                 required
+                min={minDate}
+                max={maxDate}
                 value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
+                onChange={(e) => {
+                  const date = e.target.value;
+                  if (date && isWeekend(date)) {
+                    alert("Maaf, pengiriman libur di akhir pekan! Silakan pilih hari kerja.");
+                    setSelectedDate("");
+                    return;
+                  }
+                  setSelectedDate(date);
+                }}
                 className="w-full min-h-14 px-4 rounded-2xl border-2 border-[#1E1E1E] focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-[#1E1E1E] font-bold bg-slate-50 transition-shadow"
               />
             </div>
