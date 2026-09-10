@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { FaArrowLeft, FaCheckCircle, FaPepperHot } from "react-icons/fa";
-import { GiCookie } from "react-icons/gi";
 import { supabase } from "@/lib/supabase";
 
 export default function OrderPage() {
@@ -12,17 +11,57 @@ export default function OrderPage() {
   const router = useRouter();
   const [customerName, setCustomerName] = useState("");
   const [size, setSize] = useState("Sedang");
-  const [flavor, setFlavor] = useState("Jagung Bakar");
+  const [flavor, setFlavor] = useState("Original Asin Gurih");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [ordersOpen, setOrdersOpen] = useState(true);
+  const [inventorySettings, setInventorySettings] = useState({
+    size_kecil: true,
+    size_sedang: true,
+    size_besar: true,
+    flavor_keju: true,
+    flavor_bbq: true,
+    flavor_jagung_bakar: true,
+  });
+
+  useEffect(() => {
+    const fetchInventorySettings = async () => {
+      const { data, error } = await supabase
+        .from("app_settings")
+        .select(
+          "size_kecil, size_sedang, size_besar, flavor_keju, flavor_bbq, flavor_jagung_bakar, orders_open"
+        )
+        .eq("id", 1)
+        .single();
+
+      if (error) {
+        console.error("Gagal mengambil pengaturan stok:", error);
+        return;
+      }
+
+      setInventorySettings(data);
+      setOrdersOpen(data.orders_open);
+    };
+
+    fetchInventorySettings();
+  }, []);
 
   // Opsi Pilihan Form
 const sizeOptions = [
-  { label: "Kecil", price: "5k" },
-  { label: "Sedang", price: "8k" },
-  { label: "Aduh Besar", price: "15k" },
+  { label: "Kecil", price: "5k", settingKey: "size_kecil" as const },
+  { label: "Sedang", price: "8k", settingKey: "size_sedang" as const },
+  { label: "Aduh Besar", price: "15k", settingKey: "size_besar" as const },
 ];
   const flavorOptions = ["Keju", "Jagung Bakar", "BBQ", "Original Asin Gurih"];
+  const flavorSettingKeys: Record<
+    (typeof flavorOptions)[number],
+    "flavor_keju" | "flavor_bbq" | "flavor_jagung_bakar" | null
+  > = {
+    Keju: "flavor_keju",
+    "Jagung Bakar": "flavor_jagung_bakar",
+    BBQ: "flavor_bbq",
+    "Original Asin Gurih": null,
+  };
 // 1. Array level pedas
 const spicyLevels = ["Tidak Pedas", "Dikit", "Sedang", "Aduh Pedas"];
 
@@ -42,7 +81,7 @@ const spicyLevel = getSpicyLevelText(spicyValue);
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  if (!customerName.trim()) return;
+  if (!ordersOpen || !customerName.trim()) return;
 
   setIsSubmitting(true);
 
@@ -139,9 +178,6 @@ const handleSubmit = async (e: React.FormEvent) => {
           >
             <div className="flex items-center justify-between gap-4 border-b-2 border-slate-100 pb-5">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 border-sketch-alt bg-[#96F2D7] flex items-center justify-center text-[#1E1E1E]">
-                  <GiCookie className="text-2xl" />
-                </div>
                 <div>
                   <h1 className="text-2xl font-black text-[#1E1E1E]">makar-oni</h1>
                   <p className="text-xs text-gray-500">Isi detail pesanan Anda di bawah ini</p>
@@ -152,6 +188,12 @@ const handleSubmit = async (e: React.FormEvent) => {
               </span>
             </div>
 
+            {!ordersOpen && (
+              <div className="border-sketch border-2 border-[#1E1E1E] bg-[#FFD43B] p-3 text-sm font-black shadow-[3px_3px_0_#1E1E1E]">
+                Orders Closed. Pesanan sedang ditutup.
+              </div>
+            )}
+
             <div>
               <label className="block text-xs font-black uppercase tracking-wider mb-2" htmlFor="customer-name">
                 Nama Lengkap / Panggilan
@@ -160,7 +202,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 id="customer-name"
                 type="text"
                 required
-                placeholder="Contoh: Edward"
+                placeholder="Masukkan nama Anda"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 className="w-full min-h-13 px-4 border-sketch border-2 border-[#1E1E1E] bg-slate-50 focus:outline-none focus:ring-4 focus:ring-[#96F2D7] text-sm font-semibold transition-shadow"
@@ -174,13 +216,25 @@ const handleSubmit = async (e: React.FormEvent) => {
                 <button
                     type="button"
                     key={item.label}
-                    onClick={() => setSize(item.label)}
-                    className={`min-h-20 px-1 text-xs font-bold border-sketch-btn border-2 transition-all flex flex-col items-center justify-center gap-1 ${
-                    size === item.label
-                        ? "bg-[#96F2D7] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
-                        : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
+                    disabled={!inventorySettings[item.settingKey]}
+                    onClick={
+                      inventorySettings[item.settingKey]
+                        ? () => setSize(item.label)
+                        : undefined
+                    }
+                    className={`relative min-h-20 px-1 text-xs font-bold border-sketch-btn border-2 transition-all flex flex-col items-center justify-center gap-1 ${
+                    !inventorySettings[item.settingKey]
+                        ? "bg-slate-200 opacity-60 cursor-not-allowed shadow-none"
+                        : size === item.label
+                          ? "bg-[#96F2D7] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
+                          : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
                     }`}
                 >
+                    {!inventorySettings[item.settingKey] && (
+                      <span className="absolute -top-3 right-1 border-sketch-btn bg-black px-3 py-1 font-bold text-[#FFD43B]">
+                        HABIS
+                      </span>
+                    )}
                     <span className="font-black">{item.label}</span>
                     <span className="text-[10px] bg-[#FFD43B] text-[#1E1E1E] px-1.5 py-0.5 border-sketch-btn font-black border border-[#1E1E1E]/20">
                     {item.price}
@@ -191,22 +245,39 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
 
             <div>
-              <label className="block text-xs font-black uppercase tracking-wider mb-2">Varian Rasa</label>
+              <label className="block text-xs font-black uppercase tracking-wider mb-2">
+                Varian Rasa
+              </label>
+
               <div className="grid grid-cols-2 gap-3">
-                {flavorOptions.map((item) => (
-                  <button
-                    type="button"
-                    key={item}
-                    onClick={() => setFlavor(item)}
-                    className={`min-h-13 px-3 text-xs font-bold border-sketch-btn border-2 transition-all ${
-                      flavor === item
-                        ? "bg-[#FFD43B] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
-                        : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
+                {flavorOptions.map((item) => {
+                  const settingKey = flavorSettingKeys[item];
+                  const isAvailable =
+                    settingKey === null || inventorySettings[settingKey];
+
+                  return (
+                    <button
+                      type="button"
+                      key={item}
+                      disabled={!isAvailable}
+                      onClick={isAvailable ? () => setFlavor(item) : undefined}
+                      className={`relative min-h-13 px-3 text-xs font-bold border-sketch-btn border-2 transition-all ${
+                        !isAvailable
+                          ? "bg-slate-200 opacity-60 cursor-not-allowed shadow-none"
+                          : flavor === item
+                            ? "bg-[#FFD43B] border-[#1E1E1E] text-[#1E1E1E] shadow-[3px_3px_0_#1E1E1E]"
+                            : "bg-white border-slate-200 text-gray-600 hover:border-[#1E1E1E]"
+                      }`}
+                    >
+                      {!isAvailable && (
+                        <span className="absolute -top-3 right-1 border-sketch-btn bg-black px-3 py-1 font-bold text-[#FFD43B]">
+                          HABIS
+                        </span>
+                      )}
+                      {item}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -245,7 +316,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>            
             <button
               type="submit"
-              disabled={isSubmitting || !customerName.trim()}
+              disabled={isSubmitting || !ordersOpen || !customerName.trim()}
               className="w-full min-h-14 px-5 bg-[#96F2D7] text-[#1E1E1E] font-black border-sketch-btn border-2 border-[#1E1E1E] shadow-[4px_4px_0_#1E1E1E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1E1E1E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-gray-500 disabled:shadow-[4px_4px_0_#94a3b8] disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0_#94a3b8] transition-all text-sm uppercase tracking-wide"
             >
               {isSubmitting ? "Loading Sebentar..." : "Buat Pesanan"}
