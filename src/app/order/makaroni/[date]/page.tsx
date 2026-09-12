@@ -183,7 +183,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
 
             {!ordersOpen && (
-              <div className="border-sketch border-2 border-[#1E1E1E] bg-[#FFD43B] p-3 text-sm font-black shadow-[3px_3px_0_#1E1E1E]">
+              <div className="border-sketch border-2 border-[#1E1E1E] bg-red-400 p-3 text-sm font-black shadow-[3px_3px_0_#1E1E1E]">
                 Orders Closed. Pesanan sedang ditutup.
               </div>
             )}
