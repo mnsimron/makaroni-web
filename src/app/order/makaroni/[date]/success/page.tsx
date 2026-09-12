@@ -22,23 +22,30 @@ type Order = {
   spicy_level: string;
 };
 
+type OrderNotFoundProps = {
+  orderCode?: string;
+  error?: unknown;
+  hasServiceKey: boolean;
+};
+
 export default async function OrderSuccessPage({ params, searchParams }: OrderSuccessPageProps) {
   const resolvedParams = await params;
   const { code: rawCode } = await searchParams;
   const orderCode = Array.isArray(rawCode) ? rawCode[0] : rawCode;
+  const hasServiceKey = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
   const orderDate = Array.isArray(resolvedParams.date)
     ? resolvedParams.date[0]
     : resolvedParams.date;
 
   if (!orderCode || !orderDate) {
-    return <OrderNotFound />;
+    return <OrderNotFound orderCode={orderCode} hasServiceKey={hasServiceKey} />;
   }
 
   let code: string;
   try {
     code = decodeURIComponent(orderCode);
   } catch {
-    return <OrderNotFound />;
+    return <OrderNotFound orderCode={orderCode} hasServiceKey={hasServiceKey} />;
   }
 
   const { data: order, error } = await supabase
@@ -49,7 +56,7 @@ export default async function OrderSuccessPage({ params, searchParams }: OrderSu
     .maybeSingle<Order>();
 
   if (error || !order) {
-    return <OrderNotFound />;
+    return <OrderNotFound orderCode={orderCode} error={error} hasServiceKey={hasServiceKey} />;
   }
 
   return (
@@ -113,16 +120,16 @@ export default async function OrderSuccessPage({ params, searchParams }: OrderSu
           </p>
 
           {/* TOMBOL AKSI */}
-          <div className="space-y-2 pt-2">
+          <div className="flex flex-col gap-4 mt-6 w-full">
             <Link
               href={`/order/makaroni/${order.order_date}`}
-              className="w-full py-3 bg-brand-secondary text-brand-tertiary font-extrabold border-sketch-btn border-2 border-brand-tertiary shadow-[2px_2px_0px_0px_#1E1E1E] hover:opacity-90 transition-all text-sm"
+              className="block w-full text-center px-4 py-3 font-bold bg-[#FFD43B] text-black border-sketch-btn border-2 border-black hover:opacity-90 transition-all"
             >
               Pesan Lagi Untuk Tanggal Ini
             </Link>
             <Link
               href="/"
-              className="w-full py-2.5 bg-gray-100 text-gray-700 font-bold border-sketch-btn border-2 border-transparent hover:border-brand-tertiary transition-all text-xs"
+              className="block w-full text-center px-4 py-3 font-bold bg-white text-black border-sketch-btn border-2 border-black hover:bg-gray-50 transition-all"
             >
               Kembali ke Halaman Utama
             </Link>
@@ -134,7 +141,7 @@ export default async function OrderSuccessPage({ params, searchParams }: OrderSu
   );
 }
 
-function OrderNotFound() {
+function OrderNotFound({ orderCode, error, hasServiceKey }: OrderNotFoundProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-brand-tertiary flex flex-col font-sans">
       <header className="site-nav"><div className="nav-inner">
@@ -144,6 +151,11 @@ function OrderNotFound() {
         <div className="bg-white p-6 border-sketch border-2 border-brand-tertiary shadow-[6px_6px_0px_0px_#1E1E1E] text-center">
           <h1 className="text-2xl font-black">Pesanan tidak ditemukan</h1>
           <p className="mt-3 text-sm text-gray-500">Kode pesanan tidak valid atau sudah tidak tersedia.</p>
+          <pre className="mt-4 bg-slate-800 p-4 text-left text-xs text-green-400">
+{`Searched Code: ${orderCode || "Kosong/Null"}
+Service Key Configured: ${hasServiceKey ? "YES" : "NO"}
+DB Error: ${JSON.stringify(error) || "Tidak ada pesan error"}`}
+          </pre>
           <Link href="/" className="button button-mint mt-6 inline-flex">Kembali ke Halaman Utama</Link>
         </div>
       </main>
