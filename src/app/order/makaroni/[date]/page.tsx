@@ -117,13 +117,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     if (insertError) throw insertError;
 
     // 3. Redirect ke Halaman Rekap Pesanan Baru
-    const queryParams = new URLSearchParams({
-      code: orderCode,
-      name: customerName,
-      size: sizeFormatted,
-      flavor,
-      spicy: spicyLevel,
-    }).toString();
+    const queryParams = new URLSearchParams({ code: orderCode }).toString();
 
     router.push(`/order/makaroni/${orderDate}/success?${queryParams}`);
   } catch (err: unknown) {

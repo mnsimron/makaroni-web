@@ -70,11 +70,11 @@ export default async function InventoryPage() {
     <main className="min-h-screen bg-slate-100 pb-12 text-brand-tertiary">
       <header className="border-b-2 border-brand-tertiary bg-white shadow-sm">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-4">
-          <div>
-            <p className="text-xs font-black uppercase tracking-wider text-gray-500">
-              Admin makar-oni
-            </p>
-            <h1 className="text-xl font-black">Kontrol Stok &amp; Menu</h1>
+          <div className="flex items-center gap-2">
+            <div>
+              <h1 className="font-black text-lg leading-none">Admin makar-oni</h1>
+              <p className="text-[10px] text-gray-500 font-semibold">Dashboard Pencatatan Digital</p>
+            </div>
           </div>
           <Link
             href="/admin"
